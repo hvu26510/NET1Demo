@@ -6,76 +6,64 @@ namespace NET1Demo
     {
         static void Main(string[] args)
         {
-            //Book b2 = new Book("Harry Porter", 100, "Truyen");
-            ////b2.PrintInfor
-            //string name = "Lao hac";
-            //b2.SetTitle(name);
-            //Console.WriteLine(b2.PhanLoai);
+            var nv = new NhanVien();
+            nv.DaoLuaKhachHang("012345678", "Chi A");
 
-            TinhToan t = new TinhToan();
-            int a = 1;
-            Console.WriteLine(t.AddOne(ref a));
-            Console.WriteLine("Bien a trong ham main = "+a);
-
-            int output;
-            t.OutValue(out output);
-            Console.WriteLine("Bien output trong ham main = " + output);
-            Console.WriteLine("Ket thuc chuong trinh");
+            //var ql = new QuanLy();
+            //ql.DaoLuaKhachHang("012345678", "Chi b");
+            Console.ReadLine();
         }
     }
 
-    public class TinhToan
+    public class Person
     {
-        public int AddOne(ref int a)
-        {
-            ++a;
-            return a;
-        }
-
-        public void OutValue(out int x)
-        {
-            x = 10;
-        }
+        public string Name;
+        public int NamSinh;
     }
 
-    public class Book
+    public class NhanVien : Person, IDaoLua
     {
-        public Book() { }
-        public Book(string tieude, int st, string MoTa)
+        public string EmailNoiBo;
+        public string MaNhanVien;
+
+        public string PhoneNumberFake { get; set; }
+        public virtual void DaoLuaKhachHang(string phoneNumber, string tenKH)
         {
-            Title = tieude;
-            SoTrang = st;
-            Description = MoTa;
+            Console.WriteLine("Nhan vien lua duoc "+ tenKH + " 5 trieu");
         }
 
-        private string Title;
-        public int SoTrang;
-        public string Description;
+    }
 
-        public string PhanLoai
+    public class QuanLy : NhanVien, IDaoLua, IQuanLy
+    {
+        public string trangbi;
+
+        public override void DaoLuaKhachHang(string phoneNumber, string tenKH)
         {
-            get
-            {
-                if (this.SoTrang > 100) return "Day";
-                else return "Mong";
-            }
+            Console.WriteLine("Quan ly lua duoc " + tenKH + " 10 trieu");
         }
 
-        public string GetTitle()
+        public void Vut(string MaNhanVien)
         {
-            return Title;
+            Console.WriteLine("Quan ly vut nhan vien ma:"+ MaNhanVien);
         }
-        public void SetTitle(string title)
+        public void ChichDien(string MaNhanVien, int soVolt)
         {
-            this.Title = title;
+            Console.WriteLine("Quan ly chich dien nhan vien ma:" + MaNhanVien+ " "+ soVolt+ "von");
         }
 
-        public void PrintInfor()
-        {
-            Console.WriteLine(Title);
-            Console.WriteLine(SoTrang);
-            Console.WriteLine(Description);
-        }
+    }
+
+    public interface IQuanLy
+    {
+        void Vut(string MaNhanVien);
+        void ChichDien(string MaNhanVien, int soVolt);
+    }
+
+    public interface IDaoLua
+    {
+        string PhoneNumberFake { get; set; }
+        void DaoLuaKhachHang(string phoneNumber, string tenKH);
     }
 
 }

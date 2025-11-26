@@ -9,8 +9,8 @@ namespace NET1Demo
             var nv = new NhanVien();
             nv.DaoLuaKhachHang("012345678", "Chi A");
 
-            //var ql = new QuanLy();
-            //ql.DaoLuaKhachHang("012345678", "Chi b");
+            var ql = new QuanLy();
+            ql.DaoLuaKhachHang("012345678", "Chi b");
             Console.ReadLine();
         }
     }
